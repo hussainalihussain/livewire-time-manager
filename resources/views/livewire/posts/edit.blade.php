@@ -6,6 +6,6 @@
         </div>
 
         <button type="submit">Save</button>
-        <a href="/posts">Cancel</a>
+        <a href="{{ route('posts.index') }}">Cancel</a>
     </form>
 </div>

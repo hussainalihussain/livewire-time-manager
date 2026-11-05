@@ -7,10 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-class CreatePost extends Component
+class Create extends Component
 {
     public $title;
-    public $author = 'Hussain';
 
     public function mount($title = null)
     {
@@ -31,14 +30,6 @@ class CreatePost extends Component
     #[Title('Create Post')]
     public function render()
     {
-        return view('livewire.posts.create-post')->with([
-            'var1' => 'Something',
-            "fruits" => [
-                "banana",
-                "apple",
-                "mangoes",
-                "strawberry",
-            ]
-        ]);
+        return view('livewire.posts.create');
     }
 }
