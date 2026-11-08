@@ -20,3 +20,5 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 require __DIR__.'/learning.php';
+
+require __DIR__.'/app.php';
