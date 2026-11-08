@@ -6,6 +6,7 @@ use App\Livewire\Posts\Index as PostIndex;
 use App\Livewire\Posts\SinglePost;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Posts\Edit as EditPost;
+use App\Livewire\Sample;
 
 Route::get('/counter', Counter::class);
 
@@ -15,3 +16,5 @@ Route::prefix('/posts')->as('posts.')->group(function () {
     Route::get('{post}', SinglePost::class)->name('show');
     Route::get('{post}/edit', EditPost::class)->name('edit');
 });
+
+Route::get('/sample', Sample::class);
