@@ -19,7 +19,10 @@ class Edit extends Component
         }
 
         $this->post = $post;
-        $this->title = $post->title;
+
+        $this->fill(
+            $post->only('title')
+        );
     }
 
     public function save()
