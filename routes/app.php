@@ -9,4 +9,5 @@ Route::group([
     'middleware' => ['auth', 'verified'],
 ], function () {
     Route::livewire('/', 'pages::todo.index')->name('index');
+    Route::livewire('create', 'pages::todo.create')->name('create');
 });
