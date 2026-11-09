@@ -67,7 +67,9 @@ new #[Title('Create new todo')] class extends Component {
             <textarea wire:model="description" id="description" name="description"></textarea>
         </div>
 
-        <button type="submit" class="border px-2 py-1">Create</button>
         <a href="{{ route('todos.index') }}" class="border px-2 py-1">Cancel</a>
+
+        <button wire:loading.remove type="submit" class="border px-2 py-1">Create</button>
+        <span wire:loading  class="border border-transparent px-2 py-1">Creating...</span>
     </form>
 </div>
