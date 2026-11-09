@@ -29,7 +29,6 @@ new class extends Component
 
         $this->todo->status = $this->todo->status === TodoStatus::COMPLETED ? TodoStatus::PENDING : TodoStatus::COMPLETED;
         $this->todo->save();
-        $this->isCompleted = $this->completed();
     }
 
     public function deleteTodo($id)
