@@ -65,6 +65,8 @@ new class extends Component
         wire:confirm="Are you sure?"
         wire:click="deleteTodo({{ $todo->id }})"
         class="text-red-500">x</button>
+    
+    <a href="{{ route('todos.edit', $todo) }}">Edit</a>
 </li>
 
 <script>
