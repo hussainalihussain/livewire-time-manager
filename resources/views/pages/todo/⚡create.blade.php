@@ -1,16 +1,16 @@
 <?php
 
 use Livewire\Component;
+use Livewire\Attributes\Title;
 use App\Models\Todo;
 use App\TodoPriority;
 
-new class extends Component {
+new #[Title('Create new todo')] class extends Component {
     public array $priorities;
 
     public $priority;
     public $title;
     public $description;
-
 
     public function __construct()
     {
@@ -36,6 +36,18 @@ new class extends Component {
 
 <div>
     <h1 class="my-3 text-2xl text-semibold">Create new todo</h1>
+
+    {{-- Testing --}}
+    <div class="w-60 m-5 p-2 shadow-md">
+        Title length: <span x-text="$wire.title?.length ?? 0"></span>
+        <br />
+        <button
+            x-on:click="$wire.title = ''"
+            class="border px-2 py-1"
+        >Clear title</button>
+    </div>
+    {{-- /Testing --}}
+
     <form wire:submit="save">
         <div>
             <label for="priority-0">Priority:</label>

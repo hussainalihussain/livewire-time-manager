@@ -1,18 +1,23 @@
 <?php
 
 use Livewire\Component;
+use Livewire\Attributes\Computed;
 use App\Models\Todo;
 use App\TodoStatus;
 
 new class extends Component
 {
     public Todo $todo;
-    public bool $completed;
 
     public function mount(Todo $todo)
     {
         $this->todo = $todo;
-        $this->completed = $this->todo->status === TodoStatus::COMPLETED;
+    }
+
+    #[Computed]
+    public function completed()
+    {
+        return $this->todo->status === TodoStatus::COMPLETED;
     }
 
     public function changeStatus($id)
@@ -36,6 +41,14 @@ new class extends Component
             ->route('todos.index')
             ->with('status', 'Removed!');
     }
+
+    // Testing
+    // public function render()
+    // {
+    //     return $this->view([
+    //         'author' => auth()->user(),
+    //     ]);
+    // }
 };
 ?>
 
@@ -43,12 +56,12 @@ new class extends Component
     <input
         type="checkbox"
         id="todo-{{ $todo->id }}"
-        {{ $completed ? 'checked' : '' }}
+        {{ $this->completed ? 'checked' : '' }}
         wire:change="changeStatus({{ $todo->id }})"
     />
     <label
         for="todo-{{ $todo->id }}"
-        class="{{ $completed ? 'line-through' : '' }}"
+        class="{{ $this->completed ? 'line-through' : '' }}"
     >
         {{ $todo->title }}
     </label>
