@@ -25,11 +25,11 @@ new class extends Component
     public function changeStatus($id = null)
     {
         $id = $id ?? $this->todo->id;
-        $todo = Todo::findOrFail($id);
+        $this->todo = Todo::findOrFail($id);
 
-        $todo->status = $todo->status === TodoStatus::COMPLETED ? TodoStatus::PENDING : TodoStatus::COMPLETED;
-        $todo->save();
-        $this->isCompleted = $todo->status === TodoStatus::COMPLETED;
+        $this->todo->status = $this->todo->status === TodoStatus::COMPLETED ? TodoStatus::PENDING : TodoStatus::COMPLETED;
+        $this->todo->save();
+        $this->isCompleted = $this->completed();
     }
 
     public function deleteTodo($id)
