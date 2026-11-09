@@ -29,6 +29,8 @@ new class extends Component
 
         $this->todo->status = $this->todo->status === TodoStatus::COMPLETED ? TodoStatus::PENDING : TodoStatus::COMPLETED;
         $this->todo->save();
+
+        $this->js("todoUpdated");
     }
 
     public function deleteTodo($id)
@@ -70,5 +72,8 @@ new class extends Component
         $wire.isCompleted = !$wire.isCompleted
 
         $wire.changeStatus()
+    }
+    this.$js.todoUpdated = () => {
+        alert('todo is updated')
     }
 </script>
