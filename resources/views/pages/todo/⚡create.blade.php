@@ -45,6 +45,16 @@ new #[Title('Create new todo')] class extends Component {
             x-on:click="$wire.title = ''"
             class="border px-2 py-1"
         >Clear title</button>
+        <br />
+        <button
+            x-on:click="$wire.set('title', '')"
+            class="border px-2 py-1"
+        >Clear title</button>
+        <br />
+        <button
+            x-on:click="$wire.set('title', '', false)"
+            class="border px-2 py-1"
+        >Clear title (no server request)</button>
     </div>
     {{-- /Testing --}}
 
