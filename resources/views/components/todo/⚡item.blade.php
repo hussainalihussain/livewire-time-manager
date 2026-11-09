@@ -8,10 +8,12 @@ use App\TodoStatus;
 new class extends Component
 {
     public Todo $todo;
+    public $isCompleted = false;
 
     public function mount(Todo $todo)
     {
         $this->todo = $todo;
+        $this->isCompleted = $this->completed();
     }
 
     #[Computed]
@@ -20,35 +22,25 @@ new class extends Component
         return $this->todo->status === TodoStatus::COMPLETED;
     }
 
-    public function changeStatus($id)
+    public function changeStatus($id = null)
     {
+        $id = $id ?? $this->todo->id;
         $todo = Todo::findOrFail($id);
 
         $todo->status = $todo->status === TodoStatus::COMPLETED ? TodoStatus::PENDING : TodoStatus::COMPLETED;
         $todo->save();
-        
-        return redirect()
-            ->route('todos.index')
-            ->with('status', 'Status changed!');
+        $this->isCompleted = $todo->status === TodoStatus::COMPLETED;
     }
 
     public function deleteTodo($id)
     {
-        $todo = Todo::findOrFail($id);
+        $todo = auth()->user()->todos()->findOrFail($id);
         $todo->delete();
         
         return redirect()
             ->route('todos.index')
             ->with('status', 'Removed!');
     }
-
-    // Testing
-    // public function render()
-    // {
-    //     return $this->view([
-    //         'author' => auth()->user(),
-    //     ]);
-    // }
 };
 ?>
 
@@ -57,14 +49,25 @@ new class extends Component
         type="checkbox"
         id="todo-{{ $todo->id }}"
         {{ $this->completed ? 'checked' : '' }}
-        wire:change="changeStatus({{ $todo->id }})"
+        wire:change="$js.complete"
     />
     <label
         for="todo-{{ $todo->id }}"
-        class="{{ $this->completed ? 'line-through' : '' }}"
+        :class="$wire.isCompleted ? 'line-through' : ''"
     >
         {{ $todo->title }}
     </label>
 
-    <button wire:click="deleteTodo({{ $todo->id }})" class="text-red-500">x</button>
+    <button
+        wire:confirm="Are you sure?"
+        wire:click="deleteTodo({{ $todo->id }})"
+        class="text-red-500">x</button>
 </li>
+
+<script>
+    this.$js.complete = () => {
+        $wire.isCompleted = !$wire.isCompleted
+
+        $wire.changeStatus()
+    }
+</script>
