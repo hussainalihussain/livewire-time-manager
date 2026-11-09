@@ -45,11 +45,13 @@ new class extends Component
 ?>
 
 <li>
+    {{-- wire:change="$js.complete" --}}
+    {{-- Instead of using livewire we could use alpine js to trigger the js complete function --}}
     <input
         type="checkbox"
         id="todo-{{ $todo->id }}"
         {{ $this->completed ? 'checked' : '' }}
-        wire:change="$js.complete"
+        x-on:change="$wire.$js.complete()"
     />
     <label
         for="todo-{{ $todo->id }}"
